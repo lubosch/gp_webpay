@@ -1,5 +1,8 @@
+require_relative 'support/simplecov'
+
 require 'bundler/setup'
 require 'gp_webpay'
+require 'webmock/rspec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
