@@ -5,6 +5,8 @@ AllCops:
 Layout/LineLength:
   IgnoredPatterns: ['^#']
   Max: 150
+  Exclude:
+    - 'spec/**/*'
 
 Style/FrozenStringLiteralComment:
   Enabled: false

@@ -1,0 +1,56 @@
+module GpWebpay
+  class Configuration
+    attr_accessor :configurations
+
+    def initialize
+      @configurations = {}
+    end
+
+    def default
+      @configurations[:default]
+    end
+
+    def [](config_name)
+      @configurations[config_name]
+    end
+
+    def add_configuration(merchant_number:, default: false)
+      @configurations[merchant_number] = MerchantConfig.new(merchant_number)
+      yield(@configurations[merchant_number])
+      @configurations[:default] = @configurations[merchant_number] if default || !@configurations[:default]
+    end
+
+    class MerchantConfig
+      attr_accessor :merchant_number, :merchant_pem, :merchant_password, :gpe_pem, :wsdl_file, :provider, :enabled_methods, :production
+      attr_writer :http_url, :ws_url
+
+      DEFAULT_HTTP_URL = 'https://3dsecure.gpwebpay.com/pgw/order.do'.freeze
+      DEFAULT_HTTP_TEST_URL = 'https://test.3dsecure.gpwebpay.com/pgw/order.do'.freeze
+      DEFAULT_WS_URL = 'https://3dsecure.gpwebpay.com/pay-ws/v1/PaymentService'.freeze
+      DEFAULT_WS_TEST_URL = 'https://test.3dsecure.gpwebpay.com/pay-ws/v1/PaymentService'.freeze
+
+      def initialize(merchant_number)
+        @merchant_number = merchant_number
+        @production = false
+        @wsdl_file = File.read("#{GpWebpay.root}/config/wsdl/cws_v1.wsdl")
+        @enabled_methods = 'credit_card,transfer'
+      end
+
+      def http_url
+        if @http_url.nil?
+          production ? DEFAULT_HTTP_URL : DEFAULT_HTTP_TEST_URL
+        else
+          @http_url
+        end
+      end
+
+      def ws_url
+        if @ws_url.nil?
+          production ? DEFAULT_WS_URL : DEFAULT_WS_TEST_URL
+        else
+          @ws_url
+        end
+      end
+    end
+  end
+end
