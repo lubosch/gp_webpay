@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.com/lubosch/gp_webpay.svg?branch=master)](https://travis-ci.com/lubosch/gp_webpay)
+[![Coverage Status](https://codecov.io/gh/lubosch/gp_webpay/branch/master/graph/badge.svg)](https://codecov.io/gh/lubosch/gp_webpay)
+
 # GpWebpay
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gp_webpay`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Gem for integrating GP Webpay HTTP api and WS recurring payments with multiple merchants
 
 ## Installation
 
