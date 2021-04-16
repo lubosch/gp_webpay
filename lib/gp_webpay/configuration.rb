@@ -20,6 +20,11 @@ module GpWebpay
       @configurations[:default] = @configurations[merchant_number] if default || !@configurations[:default]
     end
 
+    def remove_configuration(merchant_number:)
+      @configurations[merchant_number] = nil
+      @configurations[:default] = @configurations[@configurations.keys[0]]
+    end
+
     class MerchantConfig
       attr_accessor :merchant_number, :merchant_pem, :merchant_password, :gpe_pem, :wsdl_file, :provider, :enabled_methods, :production
       attr_writer :http_url, :ws_url

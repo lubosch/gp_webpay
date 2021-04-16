@@ -22,11 +22,15 @@ Layout/MultilineOperationIndentation:
 Style/OptionalBooleanParameter:
   Enabled: false
 
+
 #Layout/HashAlignment:
 #  EnforcedColonStyle:
 
 Metrics/AbcSize:
   Max: 25
+
+Metrics/ParameterLists:
+  Max: 6
 
 Style/Documentation:
   Enabled: false

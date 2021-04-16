@@ -26,6 +26,11 @@ RSpec.describe GpWebpay::Configuration do
       end
     end
 
+    after do
+      GpWebpay.configure do |config|
+        config.remove_configuration(merchant_number: '2222222')
+      end
+    end
     it 'sets another configuration as default' do
       expect(GpWebpay.config.default)
         .to have_attributes(merchant_number: '2222222',
