@@ -12,6 +12,8 @@ require 'gp_webpay/http/base_signed_request'
 require 'gp_webpay/http/external_url'
 require 'gp_webpay/http/http_response'
 require 'gp_webpay/http/http_request'
+require 'gp_webpay/http/create_order'
+require 'gp_webpay/http/verify_card'
 
 module GpWebpay
   @configuration = Configuration.new
