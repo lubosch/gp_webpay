@@ -10,15 +10,14 @@
 module GpWebpay
   module Http
     class CreateOrder < BaseSignedRequest
-      def initialize(attributes, locale, merchant_number: nil)
-        super(attributes, locale, 'CREATE_ORDER', merchant_number: merchant_number)
+      def initialize(attributes, locale, merchant_number: nil, url_attributes: {})
+        super(attributes, locale, 'CREATE_ORDER', merchant_number: merchant_number, url_attributes: url_attributes)
       end
 
       protected
 
       def callback_url
-        # Rails.application.routes.url_helpers.gpwebpay_create_orders_url(additional_url_params)
-        'create-order-callback'
+        GpWebpay::Engine.routes.url_helpers.gp_webpay_orders_path({ merchant_number: config.merchant_number, locale: locale }.merge(url_attributes))
       end
     end
   end

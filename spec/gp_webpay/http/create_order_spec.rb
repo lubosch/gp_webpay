@@ -2,10 +2,10 @@ require 'spec_helper'
 
 RSpec.describe GpWebpay::Http::CreateOrder do
   subject do
-    described_class.call(params, 'en')
+    described_class.call(params, 'en', url_attributes: { country: 'SK' })
   end
 
-  context 'all attrs are present' do
+  context 'when all attrs are present' do
     let(:params) do
       {
         order_number: 1,
@@ -26,9 +26,9 @@ RSpec.describe GpWebpay::Http::CreateOrder do
                'AMOUNT' => 12.34,
                'CURRENCY' => 123,
                'DEPOSITFLAG' => 1,
-               'URL' => 'create-order-callback',
+               'URL' => '/gp_webpay/orders_test?country=SK&locale=en&merchant_number=11111111',
                'LANG' => 'en',
-               'DIGEST' => 'IKc5kL3oIPhdsATpzDO2yfnu9JQfeuiJRe0pwobkP1Xcoadv43Qgku44IdbiVR1mL5BvUatuCmKFAzuq2/kTJg==')
+               'DIGEST' => 'sJ85ljypyyqRlZVru+YwwLd7BjPRlek4IM9NzYSU/+S6PE278gd0y+rwj5n1mAUVBxagSmalIgIfTCCbDnQ/Cw==')
     end
   end
 end

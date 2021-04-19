@@ -14,14 +14,15 @@
 module GpWebpay
   module Http
     class BaseSignedRequest < Service
-      attr_reader :attributes, :locale, :operation
+      attr_reader :attributes, :locale, :operation, :config, :url_attributes
 
-      def initialize(attributes, locale, operation, merchant_number: :default)
+      def initialize(attributes, locale, operation, merchant_number: :default, url_attributes: {})
         super()
         @attributes = attributes
         @locale = locale
         @merchant_number = merchant_number
         @operation = operation
+        @url_attributes = url_attributes
         @config = GpWebpay.config[@merchant_number] || GpWebpay.config.default
       end
 

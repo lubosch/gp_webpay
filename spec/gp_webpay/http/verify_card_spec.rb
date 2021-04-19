@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe GpWebpay::Http::VerifyCard do
-  subject { described_class.call(params, 'en') }
+  subject { described_class.call(params, 'en', url_attributes: { country: 'SK' }) }
 
   context 'all attrs are present' do
     let(:params) do
@@ -18,9 +18,9 @@ RSpec.describe GpWebpay::Http::VerifyCard do
                'MERCHANTNUMBER' => '11111111',
                'OPERATION' => 'CARD_VERIFICATION',
                'ORDERNUMBER' => 1,
-               'URL' => 'card_verification_callback',
+               'URL' => '/gp_webpay/cards_test?country=SK&locale=en&merchant_number=11111111',
                'LANG' => 'en',
-               'DIGEST' => 'R831i+6N7qzN2p7tjEY28xUq88MQ+Ysw6CUC6oCaZeZRp/Vw7EH8GBjnOXMBb6Xj5lj1lcAZHkhw6lSMetVZSQ==')
+               'DIGEST' => 'dZkw6NvZ4/j/JS4Hfl1BKCLBNKhX4ZoADeHFHR93djBRf7uI2kJSP4z+Q1JQnux3MMIUKYk/5djr6vdv/l7YqQ==')
     end
   end
 end

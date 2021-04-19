@@ -1,8 +1,10 @@
 require 'nokogiri'
+require 'xmlsimple'
 require 'faraday'
 require 'faraday_middleware'
 
 require 'gp_webpay/version'
+require 'gp_webpay/engine'
 require 'gp_webpay/service'
 require 'gp_webpay/openssl_security'
 require 'gp_webpay/configuration'
@@ -14,6 +16,7 @@ require 'gp_webpay/http/http_response'
 require 'gp_webpay/http/http_request'
 require 'gp_webpay/http/create_order'
 require 'gp_webpay/http/verify_card'
+require 'gp_webpay/http/validate_result'
 
 module GpWebpay
   @configuration = Configuration.new

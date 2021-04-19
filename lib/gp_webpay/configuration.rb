@@ -1,9 +1,13 @@
 module GpWebpay
   class Configuration
-    attr_accessor :configurations
+    attr_accessor :configurations, :parent_controller, :mount_at, :orders_controller, :cards_controller
 
     def initialize
       @configurations = {}
+      @parent_controller = 'AbstractController::Base'
+      @mount_at = '/gp_webpay'
+      @orders_controller = 'OrdersController'
+      @cards_controller = 'CardsController'
     end
 
     def default

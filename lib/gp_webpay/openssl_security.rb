@@ -6,11 +6,11 @@ module GpWebpay
       Base64.encode64(sign).gsub("\n", '')
     end
 
-    # def self.validate_digests(configuration, data)
-    #   public_pem = OpenSSL::X509::Certificate.new(configuration.gpe_pem).public_key
-    #   data.all? do |received, expected|
-    #     public_pem.verify(OpenSSL::Digest.new('SHA1'), Base64.decode64(received), expected)
-    #   end
-    # end
+    def self.validate_digests(configuration, data)
+      public_pem = OpenSSL::X509::Certificate.new(configuration.gpe_pem).public_key
+      data.all? do |received, expected|
+        public_pem.verify(OpenSSL::Digest.new('SHA1'), Base64.decode64(received), expected)
+      end
+    end
   end
 end

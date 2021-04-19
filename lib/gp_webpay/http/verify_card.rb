@@ -4,16 +4,14 @@
 module GpWebpay
   module Http
     class VerifyCard < BaseSignedRequest
-      def initialize(attributes, locale, merchant_number: nil)
-        super(attributes, locale, 'CARD_VERIFICATION', merchant_number: merchant_number)
+      def initialize(attributes, locale, merchant_number: nil, url_attributes: {})
+        super(attributes, locale, 'CARD_VERIFICATION', merchant_number: merchant_number, url_attributes: url_attributes)
       end
 
       protected
 
       def callback_url
-        # TODO: later
-        # 'Rails.application.routes.url_helpers.gpwebpay_verify_cards_url(additional_url_params)'
-        'card_verification_callback'
+        GpWebpay::Engine.routes.url_helpers.gp_webpay_cards_path({ merchant_number: config.merchant_number, locale: locale }.merge(url_attributes))
       end
     end
   end

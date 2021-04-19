@@ -29,7 +29,7 @@ RSpec.describe GpWebpay::Http::BaseSignedRequest do
              'CURRENCY' => 230,
              'URL' => 'callback_url',
              'PAYMETHODS' => 'CRD',
-             'DIGEST' => 'aX79sL0IZz9SQlPdBVxhKaZn+ygc45XptXzQJXrBcscQUFSmCkUbqI3F/A53U/5UbGGnYCdTmOe8zMyexGxsYQ==',
+             'DIGEST' => 'TTc3gcsjsBX33kxKYK9Clgky4fy71F614ExiIhRyoMYemy6ZD7IRVTwlF63TaGyADaU+R8pTGlrovTk3dgOlVg==',
              'LANG' => 'en')
   end
 end
