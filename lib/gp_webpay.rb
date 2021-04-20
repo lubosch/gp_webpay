@@ -24,6 +24,11 @@ require 'gp_webpay/ws/ws_response'
 require 'gp_webpay/ws/base_signed_request'
 require 'gp_webpay/ws/echo'
 
+require 'gp_webpay/ws/services/get_master_payment_status'
+require 'gp_webpay/ws/services/get_payment_status'
+require 'gp_webpay/ws/services/get_token_status'
+require 'gp_webpay/ws/services/process_cancel_capture'
+
 module GpWebpay
   @configuration = Configuration.new
 
