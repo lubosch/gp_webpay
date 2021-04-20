@@ -5,11 +5,11 @@ gemspec
 
 group :test do
   gem 'codecov'
+  gem 'rails'
   gem 'rake'
   gem 'rspec'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'simplecov'
   gem 'webmock'
-  gem 'rails'
-  gem 'rspec-rails'
 end

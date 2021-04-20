@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe GpWebpay::Configuration do
   it 'sets default configuration from spec helper file' do

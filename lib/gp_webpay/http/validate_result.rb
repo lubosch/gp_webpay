@@ -33,23 +33,23 @@ module GpWebpay
       private
 
       DIGEST_ALLOWED_ATTRIBUTES = %w[
-          OPERATION
-          ORDERNUMBER
-          MERORDERNUM
-          MD
-          PRCODE
-          SRCODE
-          RESULTTEXT
-          USERPARAM1
-          ADDINFO
-          TOKEN
-          EXPIRY
-          ACSRES
-          ACCODE
-          PANPATTERN
-          DAYTOCAPTURE
-          TOKENREGSTATUS
-        ].freeze
+        OPERATION
+        ORDERNUMBER
+        MERORDERNUM
+        MD
+        PRCODE
+        SRCODE
+        RESULTTEXT
+        USERPARAM1
+        ADDINFO
+        TOKEN
+        EXPIRY
+        ACSRES
+        ACCODE
+        PANPATTERN
+        DAYTOCAPTURE
+        TOKENREGSTATUS
+      ].freeze
 
       def digest_verification
         @digest_verification ||= (DIGEST_ALLOWED_ATTRIBUTES & params.keys).map { |key| params[key] }.join('|')

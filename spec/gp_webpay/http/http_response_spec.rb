@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe GpWebpay::Http::HttpResponse do
   subject { described_class.from_hash(params, GpWebpay.config.default) }
@@ -18,7 +18,7 @@ RSpec.describe GpWebpay::Http::HttpResponse do
     it 'transforms values to object instance' do
       res = subject
       expect(res.params).to include(operation: 'CREATE_ORDER', order_number: '123', pr_code: '123', sr_code: '0', result_text: 'OK', token: 'token',
-                                    add_info: { 'additionalInfoResponse' => { 'cardsDetails' => { 'cardDetail' => { 'brandName' => 'VISA', 'expiryMonth' => '12', 'expiryYear' => '2020', 'lastFour' => '0008' } } } })
+                                    add_info: include('additionalInfoResponse' => include('cardsDetails' => include('cardDetail' => { 'brandName' => 'VISA', 'expiryMonth' => '12', 'expiryYear' => '2020', 'lastFour' => '0008' }))))
       expect(res.original_response['OPERATION']).to eq 'CREATE_ORDER'
       expect(res).to have_attributes(pr_code: '123', sr_code: '0', result_text: 'OK', token: 'token', config: GpWebpay.config.default)
     end

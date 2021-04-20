@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe GpWebpay::Http::HttpRequest do
   subject { described_class.new(attributes) }

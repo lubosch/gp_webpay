@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe GpWebpay::Http::VerifyCard do
   subject { described_class.call(params, 'en', url_attributes: { country: 'SK' }) }

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe GpWebpay::Http::ValidateResult do
   subject { described_class.call(params, GpWebpay.config.default) }

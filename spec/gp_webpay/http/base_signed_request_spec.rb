@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 class Klass < GpWebpay::Http::BaseSignedRequest
   def callback_url
