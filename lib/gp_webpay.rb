@@ -22,6 +22,7 @@ require 'gp_webpay/ws/ws_request'
 require 'gp_webpay/ws/validate_result'
 require 'gp_webpay/ws/ws_response'
 require 'gp_webpay/ws/base_signed_request'
+require 'gp_webpay/ws/echo'
 
 module GpWebpay
   @configuration = Configuration.new
