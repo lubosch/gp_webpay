@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    gp_webpay (0.1.0)
+    rails-gp-webpay (0.1.1)
       activesupport (>= 4.2)
       nokogiri (~> 1)
       savon (~> 2)
@@ -224,8 +224,8 @@ PLATFORMS
 
 DEPENDENCIES
   codecov
-  gp_webpay!
   rails
+  rails-gp-webpay!
   rake
   rspec
   rspec-rails
