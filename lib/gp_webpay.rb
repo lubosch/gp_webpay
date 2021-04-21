@@ -3,6 +3,7 @@ require 'savon'
 require 'active_support/core_ext/hash'
 require 'active_support/core_ext/object'
 
+require 'gp_webpay/error'
 require 'gp_webpay/version'
 require 'gp_webpay/engine'
 require 'gp_webpay/service'
@@ -28,6 +29,14 @@ require 'gp_webpay/ws/services/get_master_payment_status'
 require 'gp_webpay/ws/services/get_payment_status'
 require 'gp_webpay/ws/services/get_token_status'
 require 'gp_webpay/ws/services/process_cancel_capture'
+require 'gp_webpay/ws/services/process_capture_reverse'
+require 'gp_webpay/ws/services/process_card_on_file_payment'
+require 'gp_webpay/ws/services/process_master_payment_revoke'
+require 'gp_webpay/ws/services/process_recurring_payment'
+require 'gp_webpay/ws/services/process_refund_payment'
+require 'gp_webpay/ws/services/process_token_payment'
+require 'gp_webpay/ws/services/process_token_revoke'
+require 'gp_webpay/ws/services/process_usage_based_payment'
 
 module GpWebpay
   @configuration = Configuration.new
@@ -42,8 +51,5 @@ module GpWebpay
 
   def self.root
     File.dirname(__dir__)
-  end
-
-  class Error < StandardError
   end
 end
