@@ -1,7 +1,7 @@
 require_relative 'lib/gp_webpay/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'gp_webpay'
+  spec.name = 'rails-gp-webpay'
   spec.version = GpWebpay::VERSION
   spec.authors = ['Lubomir Vnenk']
   spec.email = ['lubomir.vnenk@zoho.com']
