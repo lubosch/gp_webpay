@@ -29,7 +29,6 @@ RSpec.describe GpWebpay::Ws::Services::ProcessTokenPayment, type: :webservice do
                 </soapenv:Envelope>')
       expect(subject).to have_attributes(result_text: 'OK', valid?: be_truthy, success?: be_truthy,
                                          params: include(token_data: '91F9EA5D9FE48E0F615A5E6686C547CBCFB85B7A1658E7B8533639DE08B3A9E5'))
-
     end
   end
 

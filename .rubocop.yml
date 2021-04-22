@@ -8,6 +8,10 @@ Layout/LineLength:
   Exclude:
     - 'spec/**/*'
 
+Naming/FileName:
+  Exclude:
+    - 'lib/rails-gp-webpay.rb'
+
 Style/FrozenStringLiteralComment:
   Enabled: false
 

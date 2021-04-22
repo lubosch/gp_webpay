@@ -36,7 +36,8 @@ module GpWebpay
       def stub_payment_status(payment_number, status: 'VERIFIED', sub_status: 'SETTLED', success: true, valid: true)
         allow(GpWebpay::Ws::Services::GetPaymentStatus)
           .to receive(:call).with(hash_including(payment_number: payment_number, message_id: anything))
-                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status,
+                .and_return(instance_double(GpWebpay::Ws::WsResponse,
+                                            valid?: valid, success?: success, status: status,
                                             params: { sub_status: sub_status }))
       end
 

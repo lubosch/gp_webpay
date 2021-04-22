@@ -29,9 +29,9 @@ module GpWebpay
 
           if response.valid? && response.params[:authentication_link].present?
             raise GpWebpayConfirmationRequired.new('GP Webpay requires authentication', response.params[:authentication_link])
-          else
-            response
           end
+
+          response
         end
 
         class GpWebpayConfirmationRequired < GpWebpay::Error
