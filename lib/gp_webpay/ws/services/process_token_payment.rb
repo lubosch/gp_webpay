@@ -4,7 +4,7 @@
 #
 # @param [Hash] attributes for GP Webpay
 #
-# @return [GpwebpayWsResponse] response value object
+# @return [GpWebpay::Ws::WsResponse] response value object
 
 module GpWebpay
   module Ws
@@ -16,9 +16,8 @@ module GpWebpay
         RESPONSE_ENTITY_NAME = :token_payment_response
         SERVICE_EXCEPTION = :payment_service_exception
 
-        def initialize(attributes)
-          super
-          @attributes = attributes.except(:return_url)
+        def initialize(attributes, merchant_number: :default)
+          super(attributes.except(:return_url), merchant_number: merchant_number)
         end
       end
     end

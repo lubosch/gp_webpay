@@ -13,9 +13,10 @@ RSpec.describe GpWebpay::Ws::Services::ProcessCardOnFilePayment, type: :webservi
 
   context 'when authentication is required' do
     it 'raises error' do
-      savon.expects(:process_card_on_file_payment).with(message: include(card_on_file_payment_request: anything))
-        .returns(
-          '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+      savon.expects(:process_card_on_file_payment).with(
+        message: include(card_on_file_payment_request: include('ins0:returnUrl' => 'http://localhost:3000/gp_webpay/orders_test?merchant_number=11111111'))
+      ).returns(
+        '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                   <soapenv:Body>
                     <soapenv:Fault>
                       <faultcode>soapenv:Server</faultcode>
@@ -32,7 +33,7 @@ RSpec.describe GpWebpay::Ws::Services::ProcessCardOnFilePayment, type: :webservi
                     </soapenv:Fault>
                   </soapenv:Body>
                 </soapenv:Envelope>'
-        )
+      )
       expect { subject }.to raise_error(described_class::GpWebpayConfirmationRequired).with_message('GP Webpay requires authentication') do |error|
         expect(error.authentication_link).to eq 'https://test.3dsecure.gpwebpay.com/pgw/pay/izhaFVjCtB'
       end

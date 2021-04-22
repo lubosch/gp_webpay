@@ -12,8 +12,9 @@ RSpec.describe GpWebpay::Ws::Services::ProcessUsageBasedPayment, type: :webservi
 
   context 'when everything is ok' do
     it 'returns ok' do
-      savon.expects(:process_usage_based_payment).with(message: include(usage_based_payment_request: anything))
-        .returns('
+      savon.expects(:process_usage_based_payment).with(
+        message: include(usage_based_payment_request: include('ins0:returnUrl' => 'http://localhost:3000/gp_webpay/orders_test?merchant_number=11111111'))
+      ).returns('
                 <?xml version="1.0" encoding="UTF-8"?>
                 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                   <soapenv:Body>

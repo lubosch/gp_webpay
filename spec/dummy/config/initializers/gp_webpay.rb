@@ -11,3 +11,4 @@ GpWebpay.configure do |config|
     merchant_config.provider = '3040'
   end
 end
+GpWebpay::Engine.routes.default_url_options = { host: 'localhost', port: 3000, protocol: 'http' }

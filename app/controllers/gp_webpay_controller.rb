@@ -1,5 +1,5 @@
 class GpWebpayController < GpWebpay.config.parent_controller.constantize
-  skip_before_action :verify_authenticity_token if defined?(verify_authenticity_token)
+  skip_before_action :verify_authenticity_token if defined?(:verify_authenticity_token)
   prepend_before_action :set_external_order_number
   prepend_before_action :validate_gpwebpay_response
   prepend_before_action :set_gpwebpay_response

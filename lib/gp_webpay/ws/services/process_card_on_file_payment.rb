@@ -4,7 +4,7 @@
 #
 # @param [Hash] attributes for GP Webpay
 #
-# @return [GpwebpayWsResponse] response value object
+# @return [GpWebpay::Ws::WsResponse] response value object
 
 module GpWebpay
   module Ws
@@ -15,6 +15,14 @@ module GpWebpay
         RESPONSE_NAME = :process_card_on_file_payment_response
         RESPONSE_ENTITY_NAME = :card_on_file_payment_response
         SERVICE_EXCEPTION = :card_on_file_payment_service_exception
+
+        def initialize(attributes, merchant_number: :default)
+          config = GpWebpay.config[merchant_number] || GpWebpay.config.default
+          merged_attributes = {
+            return_url: GpWebpay::Engine.routes.url_helpers.gp_webpay_orders_url({ merchant_number: config.merchant_number })
+          }.merge(attributes)
+          super(merged_attributes, merchant_number: merchant_number)
+        end
 
         def rescue_from_soap(exception)
           response = WsResponse.from_fault_error(exception.to_hash, self.class::SERVICE_EXCEPTION, config.merchant_number)

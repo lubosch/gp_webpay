@@ -1,8 +1,6 @@
 module GpWebpay
   module Ws
     class WsResponse < Response
-      attr_accessor :validation_response
-
       def self.from_success(hash, response_name, response_entity_name, merchant_number)
         validation_response = hash.dig(response_name, response_entity_name)
         new(

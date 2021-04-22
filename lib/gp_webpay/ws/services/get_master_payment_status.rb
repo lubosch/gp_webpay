@@ -5,7 +5,7 @@
 #
 # @param [Hash] attributes for GP Webpay
 #
-# @return [GpwebpayWsResponse] response value object
+# @return [GpWebpay::Ws::WsResponse] response value object
 
 module GpWebpay
   module Ws
