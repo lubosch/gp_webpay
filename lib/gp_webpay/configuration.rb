@@ -15,7 +15,17 @@ module GpWebpay
     end
 
     def [](config_name)
-      @configurations[config_name]
+      return if config_name.blank?
+
+      @configurations[config_name] || find_configuration_by_merchant_number(config_name)
+    end
+
+    def find_configuration_by_merchant_number(merchant_number)
+
+      config = @configurations.find { |_key, value| puts _key;value.merchant_number.to_s == merchant_number.to_s }
+      return nil if config.blank?
+
+      config[-1]
     end
 
     def add_configuration(merchant_number:, default: false)
@@ -25,7 +35,7 @@ module GpWebpay
     end
 
     def remove_configuration(merchant_number:)
-      @configurations[merchant_number] = nil
+      @configurations.delete(merchant_number)
       @configurations[:default] = @configurations[@configurations.keys[0]]
     end
 
