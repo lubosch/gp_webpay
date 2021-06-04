@@ -41,7 +41,7 @@ module GpWebpay
                                             params: { sub_status: sub_status }))
       end
 
-      def stub_usage_based_payment(attributes, valid: true, success: true, status: '', result_text: 'OK', response_token_data: nil)
+      def stub_usage_based_payment(attributes, merchant_number:, valid: true, success: true, status: '', result_text: 'OK', response_token_data: nil)
         allow(GpWebpay::Ws::Services::ProcessUsageBasedPayment)
           .to receive(:call).with(
             hash_including(
@@ -52,7 +52,8 @@ module GpWebpay
                 currency_code: anything,
                 capture_flag: '1'
               }.merge(attributes)
-            )
+            ),
+            merchant_number: merchant_number,
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
