@@ -54,7 +54,11 @@ module GpWebpay
       end
 
       def client
-        @client ||= Savon.client(wsdl: config.wsdl_file, endpoint: config.ws_url, pretty_print_xml: true)
+        @client ||= Savon.client(wsdl: config.wsdl_file,
+                                 endpoint: config.ws_url,
+                                 pretty_print_xml: true,
+                                 open_timeout: 300,
+                                 read_timeout: 300)
       end
 
       def rescue_from_http(error)
