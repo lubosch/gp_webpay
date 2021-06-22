@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails-gp-webpay (0.2.4)
+    rails-gp-webpay (0.2.5)
       activesupport (>= 4.2)
       nokogiri (~> 1)
       savon (~> 2)
