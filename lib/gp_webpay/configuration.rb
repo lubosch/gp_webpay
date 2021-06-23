@@ -21,8 +21,7 @@ module GpWebpay
     end
 
     def find_configuration_by_merchant_number(merchant_number)
-
-      config = @configurations.find { |_key, value| puts _key;value.merchant_number.to_s == merchant_number.to_s }
+      config = @configurations.find { |_key, value| value.merchant_number.to_s == merchant_number.to_s }
       return nil if config.blank?
 
       config[-1]

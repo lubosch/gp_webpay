@@ -14,6 +14,7 @@ module GpWebpay
         REQUEST_NAME = :capture_reverse_request
         RESPONSE_NAME = :process_capture_reverse_response
         RESPONSE_ENTITY_NAME = :capture_reverse_response
+        DEFAULT_ATTRIBUTES = { capture_number: 1 }.freeze # 1 is recommended
       end
     end
   end

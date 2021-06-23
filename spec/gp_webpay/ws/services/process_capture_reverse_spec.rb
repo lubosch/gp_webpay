@@ -8,13 +8,12 @@ RSpec.describe GpWebpay::Ws::Services::ProcessCaptureReverse, type: :webservice 
 
   let!(:params) do
     { message_id: '3432342=2431',
-      payment_number: '3242341',
-      capture_number: Time.now.to_i }
+      payment_number: '3242341' }
   end
 
   context 'when no authentication is required' do
     it 'returns ok' do
-      savon.expects(:process_capture_reverse).with(message: include(capture_reverse_request: anything))
+      savon.expects(:process_capture_reverse).with(message: include(capture_reverse_request: include('ins0:captureNumber' => 1)))
         .returns('
               <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
                 <soapenv:Body>

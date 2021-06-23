@@ -1,5 +1,5 @@
 require 'savon/mock/spec_helper'
-
+# rubocop:disable Metrics/ParameterLists
 module GpWebpay
   module SpecHelper
     class Interface
@@ -45,15 +45,13 @@ module GpWebpay
         allow(GpWebpay::Ws::Services::ProcessUsageBasedPayment)
           .to receive(:call).with(
             hash_including(
-              {
-                message_id: anything,
+              { message_id: anything,
                 payment_number: anything,
                 order_number: anything,
                 currency_code: anything,
-                capture_flag: '1'
-              }.merge(attributes)
+                capture_flag: '1' }.merge(attributes)
             ),
-            merchant_number: merchant_number,
+            merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
@@ -69,28 +67,28 @@ module GpWebpay
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
       end
 
-      def stub_refund_payment(attributes, valid: true, success: true, status: '', result_text: 'OK')
+      def stub_refund_payment(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
         allow(GpWebpay::Ws::Services::ProcessRefundPayment)
           .to receive(:call).with(
-            hash_including({ message_id: anything }.merge(attributes))
+            hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
       end
 
-      def stub_capture_reverse(attributes, valid: true, success: true, status: '', result_text: 'OK')
+      def stub_capture_reverse(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
         allow(GpWebpay::Ws::Services::ProcessCaptureReverse)
           .to receive(:call).with(
-            hash_including({ message_id: anything }.merge(attributes))
+            hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
       end
 
-      def stub_cancel_capture(attributes, valid: true, success: true, status: '', result_text: 'OK')
+      def stub_cancel_capture(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
         allow(GpWebpay::Ws::Services::ProcessCancelCapture)
           .to receive(:call).with(
-            hash_including({ message_id: anything }.merge(attributes))
+            hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
@@ -102,3 +100,4 @@ module GpWebpay
     end
   end
 end
+# rubocop:enable Metrics/ParameterLists

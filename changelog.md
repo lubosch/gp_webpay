@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.6
+Add merchant number to tests, add default attributes to requests
+
 ## 0.2.4
 Increase savon timeout to 5 minutes
 

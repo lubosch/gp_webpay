@@ -23,6 +23,7 @@ module GpWebpay
       RESPONSE_NAME = 'override_me'.freeze
       RESPONSE_ENTITY_NAME = 'override_me'.freeze
       SERVICE_EXCEPTION = :service_exception
+      DEFAULT_ATTRIBUTES = {}.freeze
 
       def initialize(attributes, merchant_number: :default)
         @attributes = attributes
@@ -32,9 +33,10 @@ module GpWebpay
       end
 
       def call
-        attrs = WsRequest.new(attributes.merge(provider: config.provider, merchant_number: config.merchant_number)).to_gpwebpay
+        attrs = WsRequest.new(final_attributes).to_gpwebpay
 
-        res = client.call(self.class::OPERATION_NAME, message: { self.class::REQUEST_NAME => attributes_with_signature(attrs) })
+        Rails.logger.debug([self.class::OPERATION_NAME, { message: { self.class::REQUEST_NAME => attributes_with_signature(attrs) } }])
+        res = client.call(self.class::OPERATION_NAME, { message: { self.class::REQUEST_NAME => attributes_with_signature(attrs) } })
         WsResponse.from_success(res.body, self.class::RESPONSE_NAME, self.class::RESPONSE_ENTITY_NAME, config.merchant_number)
       rescue Savon::HTTPError => e
         rescue_from_http(e)
@@ -43,6 +45,12 @@ module GpWebpay
       end
 
       protected
+
+      def final_attributes
+        {}.merge(self.class::DEFAULT_ATTRIBUTES,
+                 attributes,
+                 { provider: config.provider, merchant_number: config.merchant_number })
+      end
 
       def digest_text(attrs)
         attrs.values.join('|')
