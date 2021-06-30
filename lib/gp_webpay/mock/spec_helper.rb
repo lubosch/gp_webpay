@@ -24,13 +24,18 @@ module GpWebpay
       def stub_card_token(token, status: 'VERIFIED', success: true, valid: true)
         allow(GpWebpay::Ws::Services::GetTokenStatus)
           .to receive(:call).with(hash_including(token_data: token, message_id: anything))
-                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status))
+                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status,
+                                            pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                            original_response: { pr_code: 0, sr_code: 0 }))
       end
 
       def stub_master_payment_status(payment_number, status: 'OK', success: true, valid: true)
         allow(GpWebpay::Ws::Services::GetMasterPaymentStatus)
           .to receive(:call).with(hash_including(payment_number: payment_number, message_id: anything))
-                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status))
+                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status,
+                                            pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                            original_response: { pr_code: 0, sr_code: 0 }))
+
       end
 
       def stub_payment_status(payment_number, merchant_number: nil, status: 'VERIFIED', sub_status: 'SETTLED', success: true, valid: true)
@@ -38,6 +43,8 @@ module GpWebpay
           .to receive(:call).with(hash_including(payment_number: payment_number, message_id: anything), merchant_number: merchant_number)
                 .and_return(instance_double(GpWebpay::Ws::WsResponse,
                                             valid?: valid, success?: success, status: status,
+                                            pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                            original_response: { pr_code: 0, sr_code: 0 },
                                             params: { sub_status: sub_status }))
       end
 
@@ -55,6 +62,7 @@ module GpWebpay
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
                                        pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       original_response: { pr_code: 0, sr_code: 0 },
                                        params: { token_data: response_token_data || attributes[:token_data] }))
       end
 
@@ -64,7 +72,8 @@ module GpWebpay
             hash_including({ message_id: anything }.merge(token_data: token))
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
-                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
+                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       original_response: { pr_code: 0, sr_code: 0 }))
       end
 
       def stub_refund_payment(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
@@ -73,7 +82,8 @@ module GpWebpay
             hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
-                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
+                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       original_response: { pr_code: 0, sr_code: 0 }))
       end
 
       def stub_capture_reverse(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
@@ -82,7 +92,8 @@ module GpWebpay
             hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
-                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
+                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       original_response: { pr_code: 0, sr_code: 0 }))
       end
 
       def stub_cancel_capture(attributes, merchant_number: nil, valid: true, success: true, status: '', result_text: 'OK')
@@ -91,7 +102,8 @@ module GpWebpay
             hash_including({ message_id: anything }.merge(attributes)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
-                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4'))
+                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       original_response: { pr_code: 0, sr_code: 0 }))
       end
     end
 
