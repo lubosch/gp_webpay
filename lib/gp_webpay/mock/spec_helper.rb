@@ -24,18 +24,19 @@ module GpWebpay
       def stub_card_token(token, status: 'VERIFIED', success: true, valid: true)
         allow(GpWebpay::Ws::Services::GetTokenStatus)
           .to receive(:call).with(hash_including(token_data: token, message_id: anything))
-                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status,
-                                            pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                .and_return(instance_double(GpWebpay::Ws::WsResponse,
+                                            valid?: valid, success?: success, status: status,
+                                            pr_code: (success ? '0' : '123'), sr_code: (success ? '0' : '4'),
                                             original_response: { pr_code: 0, sr_code: 0 }))
       end
 
       def stub_master_payment_status(payment_number, status: 'OK', success: true, valid: true)
         allow(GpWebpay::Ws::Services::GetMasterPaymentStatus)
           .to receive(:call).with(hash_including(payment_number: payment_number, message_id: anything))
-                .and_return(instance_double(GpWebpay::Ws::WsResponse, valid?: valid, success?: success, status: status,
-                                            pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                .and_return(instance_double(GpWebpay::Ws::WsResponse,
+                                            valid?: valid, success?: success, status: status,
+                                            pr_code: (success ? '0' : '123'), sr_code: (success ? '0' : '4'),
                                             original_response: { pr_code: 0, sr_code: 0 }))
-
       end
 
       def stub_payment_status(payment_number, merchant_number: nil, status: 'VERIFIED', sub_status: 'SETTLED', success: true, valid: true)
@@ -66,13 +67,13 @@ module GpWebpay
                                        params: { token_data: response_token_data || attributes[:token_data] }))
       end
 
-      def stub_token_revoke(token, valid: true, success: true, status: 'REVOKED', result_text: 'OK')
+      def stub_token_revoke(token, merchant_number: nil, valid: true, success: true, status: 'REVOKED', result_text: 'OK')
         allow(GpWebpay::Ws::Services::ProcessTokenRevoke)
           .to receive(:call).with(
-            hash_including({ message_id: anything }.merge(token_data: token))
+            hash_including({ message_id: anything }.merge(token_data: token)), merchant_number: merchant_number
           ).and_return(instance_double(GpWebpay::Ws::WsResponse,
                                        valid?: valid, success?: success, status: status, result_text: result_text,
-                                       pr_code: success ? '0' : '123', sr_code: success ? '0' : '4',
+                                       pr_code: (success ? '0' : '123'), sr_code: (success ? '0' : '4'),
                                        original_response: { pr_code: 0, sr_code: 0 }))
       end
 
